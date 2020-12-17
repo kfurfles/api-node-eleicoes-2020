@@ -1,0 +1,19 @@
+{
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "MySql2019!",
+    "database": "elections",
+    "migrations": [
+        "src/**/migrations/*.{ts|js}"
+    ],
+    "entities": [
+        "src/**/entities/*.entity.{ts|js}"
+    ],
+    "cli": {
+        "entitiesDir": "src/database/entitys",
+        "migrationsDir": "src/database/migrations",
+        "subscribersDir": "src/database/subscribers"
+    }
+}
