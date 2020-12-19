@@ -2,15 +2,13 @@ import {getRepository, MigrationInterface, QueryRunner} from "typeorm";
 import { Places } from "../entities/places.entity";
 import { SeedHelper } from "../helper/tool-seeds/seed-helper";
 
-const sleep = (time: number) => new Promise((res,rej) => setTimeout(() => res(null), time))
-
-export class Places1608307822775 implements MigrationInterface {
+export class PlacesSeeds1608307822775 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {        
         const folderSeed = 'places'  
         const seed = new SeedHelper(folderSeed);
 
-        for await(const file of seed.getFiles<any>()){
+        for await(const file of seed.getFiles<Places>()){
             const { 
                 CD_MUNICIPIO,
                 NM_MUNICIPIO,
@@ -34,8 +32,8 @@ export class Places1608307822775 implements MigrationInterface {
                 DEFAULT,
                 ${parseInt(CD_MUNICIPIO)}, 
                 '${NM_MUNICIPIO}', 
-                ${parseInt(NR_ZONA)}, 
-                ${parseInt(NR_SECAO)}, 
+                ${parseInt(NR_ZONA.toString())}, 
+                ${parseInt(NR_SECAO.toString())}, 
                 '${PLACE}', 
                 '${ADDRESS}'
             )`
