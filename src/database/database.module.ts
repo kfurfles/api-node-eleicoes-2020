@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import * as data from '../ormconfig.json'
+import data from '../ormconfig'
+console.log({ data })
 
 @Module({
     imports: [

@@ -10,12 +10,12 @@ async function bootstrap() {
 bootstrap();
 
 (async () => {
-  const folderSeed = 'places'  
-  const seed = new SeedHelper(folderSeed);
+  // const folderSeed = 'places'  
+  // const seed = new SeedHelper(folderSeed);
   
-  const list = seed.getFiles();
-  for await(const file of list){
-    console.log(file)
-  }
+  // const list = seed.getFiles();
+  // for await(const file of list){
+  //   console.log(file)
+  // }
 
 })()

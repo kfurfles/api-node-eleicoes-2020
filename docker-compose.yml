@@ -1,25 +1,45 @@
 version: '3'
 
 services:
-  mysqlsrv:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: "MySql2019!"
-      MYSQL_DATABASE: "elections"
+  srv_postgress:
+    image: postgres
+    container_name: 'POSTGRES_DB_CONTAINER' 
+    environment: 
+      POSTGRES_PASSWORD: "123456@@"
+      POSTGRES_USER: "admin"
+      POSTGRES_DB: "elections"
     ports:
-      - "3306:3306"
+      - 5432:5432
     volumes:
-      - /home/furflesx/docker/volumes/mysql:/var/lib/mysql
+      - /home/furflesx/docker/volumes/postgess:/var/lib/postgresql/data
+      - ${PWD}/database:/database/
+      - ${PWD}/scripts/docker:/scripts
+
     networks:
-      - mysql-compose-network
+      - db-compose-network
+
+    # command: sh /scripts/restore-database.sh
+
+  # mysqlsrv:
+  #   image: mysql:5.7
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: "MySql2019!"
+  #     MYSQL_DATABASE: "elections"
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - /home/furflesx/docker/volumes/mysql:/var/lib/mysql
+  #   networks:
+  #     - db-compose-network
 
   adminer:
     image: adminer
     ports:
       - 8080:8080
     networks:
-      - mysql-compose-network
+      - db-compose-network
 
 networks: 
-  mysql-compose-network:
+  db-compose-network:
     driver: bridge
+ 
