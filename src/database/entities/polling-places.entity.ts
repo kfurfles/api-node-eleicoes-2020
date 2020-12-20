@@ -14,5 +14,6 @@ export class Places {
     ADDRESS: string
 
     @OneToOne(() => Cities, cities => cities.CD_MUNICIPIO)
-    ID_COD_MUNICIPIO
+    @JoinColumn()
+    CODMUNICIPIOId
 }

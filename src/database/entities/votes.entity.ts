@@ -32,6 +32,7 @@ export class Votes {
     NR_SECAO: number
 
     @OneToOne(() => Cities, cities => cities.id)
+    @JoinColumn()
     ID_COD_POLLING_PLACE: string
 
     @Column() 

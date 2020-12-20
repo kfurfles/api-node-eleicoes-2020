@@ -1,1 +1,1 @@
-cat /database/places.sql.gz | gunzip | psql elections -U admin
+cat /database/cities.sql.gz | gunzip | psql elections -U admin

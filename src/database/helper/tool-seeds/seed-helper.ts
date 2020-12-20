@@ -19,9 +19,14 @@ export class SeedHelper{
     private sanitazeObj(obj){
         return Object.entries(obj)
         .reduce((acc,[key,value]) => {
+            if(!value){
+                console.log(
+                    JSON.stringify(obj, null, 2)
+                )
+            }
             return { 
                 ...acc, 
-                [key]: (value as string).replace(/\'/ig,"`") 
+                [key]:  value.toString().replace(/\'/ig,"`") 
             }
          },{})
     }
