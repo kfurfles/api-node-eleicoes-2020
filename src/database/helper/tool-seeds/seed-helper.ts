@@ -2,28 +2,24 @@ import { join } from 'path';
 import { readdirSync, readFile as readFileCb } from 'fs';
 import { promisify } from 'util'
 import { SEEDS as SEEDS_FOLDER } from 'src/constants/path';
-import { text } from 'express';
 const readFile = promisify(readFileCb)
 
 export class SeedHelper{
     private readonly BASE_DIR;
     private readonly SEED_DIR;
     private readonly folderName: string;
+    private sanitaze: boolean;
     
-    constructor(folderName){
+    constructor(folderName, sanitaze: boolean = true){
         this.BASE_DIR = SEEDS_FOLDER;
         this.folderName = folderName;
         this.SEED_DIR = join(this.BASE_DIR,this.folderName);
+        this.sanitaze = sanitaze;
     }
 
     private sanitazeObj(obj){
         return Object.entries(obj)
         .reduce((acc,[key,value]) => {
-            if(!value){
-                console.log(
-                    JSON.stringify(obj, null, 2)
-                )
-            }
             return { 
                 ...acc, 
                 [key]:  value.toString().replace(/\'/ig,"`") 
@@ -37,8 +33,12 @@ export class SeedHelper{
 
     private async readFile(filePath){
         const textFile = await readFile(filePath, { encoding: 'utf8' })
-        const file = this.sanitazeObj(JSON.parse(textFile || '{}'))
-        return file
+        if(this.sanitaze){
+            const file = this.sanitazeObj(JSON.parse(textFile || '{}'))
+            return file
+        } else{
+            return textFile
+        }
     }
 
     async* getFiles<T>(){

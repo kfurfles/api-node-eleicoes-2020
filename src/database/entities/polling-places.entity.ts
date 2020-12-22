@@ -2,18 +2,24 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'ty
 import { Cities } from './cities.entity'
 
 @Entity({ name: 'pollingplaces' })
-export class Places {
+export class PollingPlaces {
 
     @PrimaryGeneratedColumn('uuid')
     id: string
 
-    @Column('int')
-    PLACE: number
+    @Column()
+    PLACE: string
 
-    @Column('varchar')
+    @Column()
     ADDRESS: string
+
+    @Column()
+    NR_ZONA: string
+
+    @Column()
+    NR_SECAO: string
 
     @OneToOne(() => Cities, cities => cities.CD_MUNICIPIO)
     @JoinColumn()
-    CODMUNICIPIOId
+    COD_MUNICIPIO_ID
 }

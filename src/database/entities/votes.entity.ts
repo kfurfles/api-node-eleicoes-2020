@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Cities } from './cities.entity'
+import { PollingPlaces } from './polling-places.entity'
 
 @Entity({ name: 'votes' })
 export class Votes {
@@ -25,13 +26,7 @@ export class Votes {
     @Column() 
     DS_MUN_SIT_BIOMETRIA: string
 
-    @Column() 
-    NR_ZONA: number
-
-    @Column() 
-    NR_SECAO: number
-
-    @OneToOne(() => Cities, cities => cities.id)
+    @OneToOne(() => PollingPlaces, pollingPlaces => pollingPlaces.id)
     @JoinColumn()
     ID_COD_POLLING_PLACE: string
 
