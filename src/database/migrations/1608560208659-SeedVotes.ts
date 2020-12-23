@@ -1,14 +1,21 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 import { SeedHelper } from "../helper/tool-seeds/seed-helper";
 import { IVoteSeed } from "../interfaces/vote-seed.interface";
+import fs from 'fs'
+import { promisify } from 'util'
+const writeFile = promisify(fs.writeFile)
+
 
 export class SeedVotes1608560208659 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {        
-        const folderSeed = 'votes'  
+        const folderSeed = 'votes1'  
         const seed = new SeedHelper(folderSeed, false);
+        let fileText = ''
+        let index = 0;
 
         for await(const file of  seed.getFiles<string>()){
+            fileText = '';
             const queryString = ({
                 DT_GERACAO,
                 HH_GERACAO,
@@ -82,8 +89,13 @@ export class SeedVotes1608560208659 implements MigrationInterface {
 
             const list: IVoteSeed[] = JSON.parse(file)[0]
             for(const vote of list){
-                await queryRunner.query(queryString({ ...vote }))
+                const fullQuery = queryString({ ...vote })
+                fileText += `\n${fullQuery};`
+                await queryRunner.query(fullQuery)
             }
+            const filePath = `/home/furflesx/project/election-project/files/query-${index}.sql`
+            await writeFile(filePath,fileText)
+            index++
         }
     }
 
