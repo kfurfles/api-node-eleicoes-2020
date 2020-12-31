@@ -1,10 +1,11 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Cities } from './cities.entity'
+import { PollingPlaces } from './polling-places.entity'
 
 @Entity({ name: 'votes' })
 export class Votes {
 
     @PrimaryGeneratedColumn('uuid')
-    @PrimaryColumn()
     id: string
 
     @Column() 
@@ -20,19 +21,14 @@ export class Votes {
     SG_UF: string
 
     @Column() 
-    CD_MUNICIPIO: string
-
-    @Column() 
     CD_MUN_SIT_BIOMETRIA: number
 
     @Column() 
     DS_MUN_SIT_BIOMETRIA: string
 
-    @Column() 
-    NR_ZONA: number
-
-    @Column() 
-    NR_SECAO: number
+    @OneToOne(() => PollingPlaces, pollingPlaces => pollingPlaces.id)
+    @JoinColumn()
+    ID_COD_POLLING_PLACE: string
 
     @Column() 
     CD_LOCAL_VOTACAO: string

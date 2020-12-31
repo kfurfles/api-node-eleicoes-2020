@@ -6,7 +6,7 @@ import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
-    DatabaseModule,
+    // DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
