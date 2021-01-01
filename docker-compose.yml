@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  srv_postgress:
+    image: postgres
+    container_name: 'POSTGRES_DB_CONTAINER' 
+    environment: 
+      POSTGRES_PASSWORD: "123456@@"
+      POSTGRES_USER: "admin"
+      POSTGRES_DB: "elections"
+    ports:
+      - 5432:5432
+    volumes:
+      - ${PWD}/volumes:/var/lib/postgresql/data
+      - ${PWD}/database:/database/
+      - ${PWD}/scripts/docker:/scripts
+
+    networks:
+      - db-compose-network
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - db-compose-network
+
+networks: 
+  db-compose-network:
+    driver: bridge
+ 
