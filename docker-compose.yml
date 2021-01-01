@@ -11,7 +11,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - /home/furflesx/docker/volumes/postgess:/var/lib/postgresql/data
+      - ${PWD}/volumes:/var/lib/postgresql/data
       - ${PWD}/database:/database/
       - ${PWD}/scripts/docker:/scripts
 

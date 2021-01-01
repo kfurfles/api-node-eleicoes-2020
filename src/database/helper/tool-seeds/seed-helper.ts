@@ -6,12 +6,12 @@ const readFile = promisify(readFileCb)
 
 export class SeedHelper{
     private readonly BASE_DIR;
-    private readonly SEED_DIR;
+    private SEED_DIR;
     private readonly folderName: string;
     private sanitaze: boolean;
     
-    constructor(folderName, sanitaze: boolean = true){
-        this.BASE_DIR = SEEDS_FOLDER;
+    constructor(folderName, sanitaze: boolean = true,seedFolder?: string){
+        this.BASE_DIR = seedFolder || SEEDS_FOLDER;
         this.folderName = folderName;
         this.SEED_DIR = join(this.BASE_DIR,this.folderName);
         this.sanitaze = sanitaze;
@@ -41,6 +41,9 @@ export class SeedHelper{
         }
     }
 
+    setSeedDir(path){
+        this.SEED_DIR = path 
+    }
     async* getFiles<T>(){
         const list = this.getDirFileNames();
         let i;
